@@ -1,5 +1,7 @@
 # reality-wireguard-relay
 
+**English** | [中文说明](#中文说明)
+
 A [Claude Code](https://claude.com/claude-code) **skill** that teaches the agent how to
 deploy a two-hop proxy chain: clients reach a **VLESS-XHTTP-REALITY** entry on a
 relay/中转 VPS, and the relay forwards over a **WireGuard** tunnel to one or more
@@ -60,6 +62,65 @@ openssl rand -hex 4       # path
 ```
 
 Never commit real server IPs, UUIDs, or private keys.
+
+---
+
+## 中文说明
+
+一个 [Claude Code](https://claude.com/claude-code) **skill**，教 agent 搭建两跳代理链：客户端连接
+**中转 VPS** 上的 **VLESS-XHTTP-REALITY** 入口，中转再通过 **WireGuard** 隧道把流量转发给一台或多台
+**落地 VPS** 出网——所以公网出口 IP 是落地的，而不是中转的。
+
+```
+客户端 ──VLESS/XHTTP/REALITY──▶ 中转 (relay, 可达入口)
+                                  │
+                                  └──WireGuard──▶ 落地 (landing) ──NAT──▶ 互联网
+                                                  出口 IP = 落地的公网 IP
+```
+
+这不是一键安装脚本，而是一份 **操作手册 + 辅助脚本**：agent 按它通过 SSH 分阶段构建、分流、验证整条链路，
+每完成一个阶段先验证再继续。它沉淀了那些一旦踩中就变成"线路不通"的真实坑点——IP 协议族可达性、出站强制
+走 IPv4、多个 IP 其实是同一台落地机、MTU 黑洞、过期的 MASQUERADE 等。
+
+### 仓库内容
+
+| 路径 | 用途 |
+|------|------|
+| `SKILL.md` | skill 入口——何时使用、构建流程 |
+| `references/architecture.md` | 决策树：单出口 vs 多出口、按 UUID 把一个入口分流到多条线 |
+| `references/pitfalls.md` | 那些最难排查的故障模式及其修复 |
+| `references/verification.md` | 如何在进入下一阶段前证明当前阶段可用 |
+| `references/lines-spec.md` | 驱动配置 / 验证 / 客户端链接生成的那份小 JSON |
+| `scripts/gen_xray_relay_config.py` | 由 spec 生成 xray 中转 inbound/routing 配置 |
+| `scripts/gen_client_links.py` | 由 spec 生成 VLESS 客户端链接 / 二维码 |
+| `scripts/verify_egress.py` | 绑定每个隧道源 IP，确认它实际落到的公网出口 |
+| `assets/templates/*.conf` | 中转和落地两端的 WireGuard `wg0.conf` 模板 |
+
+### 安装
+
+clone 到你的 Claude Code skills 目录：
+
+```bash
+git clone https://github.com/superchaospc/reality-wireguard-relay \
+  ~/.claude/skills/reality-wireguard-relay
+```
+
+当你让 Claude Code 搭建 "REALITY 入口 + WireGuard 落地" 的链路时该 skill 会自动触发（例如
+"搭中转走 reality 落地走 wireguard"、"多出口 IP 落地"、"vless xhttp reality + wireguard 出口"）。
+
+### 安全声明
+
+**本仓库里所有 IP、UUID、short_id、密钥都是占位示例**——IPv6 用 `2001:db8::/32` 文档保留段，出口 IP 用
+`203.0.113.0/24` TEST-NET 段，私钥都是截断的（`UNGj…`）。部署前请自行生成密钥：
+
+```bash
+xray uuid                 # 每条线的 UUID
+xray x25519               # REALITY 密钥对（一对，全部线路复用）
+openssl rand -hex 8       # short_id
+openssl rand -hex 4       # path
+```
+
+**切勿提交真实的服务器 IP、UUID 或私钥。**
 
 ## License
 
