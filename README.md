@@ -11,8 +11,8 @@
 A [Claude Code](https://claude.com/claude-code) / **Codex** **skill** that teaches the agent how to
 deploy a two-hop proxy chain: clients reach a **VLESS-XHTTP-REALITY** entry on a
 relay/中转 VPS, and the relay forwards over a **WireGuard** tunnel to one or more
-landing/落地 VPS that egress to the internet — so the public exit IP is the landing's,
-not the relay's.
+landing/落地 VPS that egress to the internet via **SNAT** — so the public exit IP is
+the landing's (and can be split across multiple exit IPs), not the relay's.
 
 ```
 Client ──VLESS/XHTTP/REALITY──▶ Relay (中转, reachable entry)
@@ -87,7 +87,7 @@ Never commit real server IPs, UUIDs, or private keys.
 
 一个 [Claude Code](https://claude.com/claude-code) / **Codex** **skill**，教 agent 搭建两跳代理链：客户端连接
 **中转 VPS** 上的 **VLESS-XHTTP-REALITY** 入口，中转再通过 **WireGuard** 隧道把流量转发给一台或多台
-**落地 VPS** 出网——所以公网出口 IP 是落地的，而不是中转的。
+**落地 VPS**，落地经 **SNAT** 出网——所以公网出口 IP 是落地的（且可拆成多个出口 IP），而不是中转的。
 
 ```
 客户端 ──VLESS/XHTTP/REALITY──▶ 中转 (relay, 可达入口)
