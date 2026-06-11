@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- README intro (EN + 中文) reworded to match the repo description: landing egress is
+  via **SNAT** and can be split across **multiple exit IPs**, and the project is framed
+  as a **playbook + helper scripts** (not a one-click installer).
+
 ## [1.1.0] — 2026-06-11
 
 ### Added
