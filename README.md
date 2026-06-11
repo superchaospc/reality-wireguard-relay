@@ -1,5 +1,10 @@
 # reality-wireguard-relay
 
+[![Release](https://img.shields.io/github/v/release/superchaospc/reality-wireguard-relay?color=success)](https://github.com/superchaospc/reality-wireguard-relay/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-8A2BE2)](https://claude.com/claude-code)
+[![Xray REALITY + WireGuard](https://img.shields.io/badge/Xray-REALITY%20%2B%20WireGuard-orange)](#)
+
 **English** | [中文说明](#中文说明)
 
 A [Claude Code](https://claude.com/claude-code) **skill** that teaches the agent how to
