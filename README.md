@@ -3,11 +3,12 @@
 [![Release](https://img.shields.io/github/v/release/superchaospc/reality-wireguard-relay?color=success)](https://github.com/superchaospc/reality-wireguard-relay/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-8A2BE2)](https://claude.com/claude-code)
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-412991)](#install)
 [![Xray REALITY + WireGuard](https://img.shields.io/badge/Xray-REALITY%20%2B%20WireGuard-orange)](#)
 
 **English** | [中文说明](#中文说明)
 
-A [Claude Code](https://claude.com/claude-code) **skill** that teaches the agent how to
+A [Claude Code](https://claude.com/claude-code) / **Codex** **skill** that teaches the agent how to
 deploy a two-hop proxy chain: clients reach a **VLESS-XHTTP-REALITY** entry on a
 relay/中转 VPS, and the relay forwards over a **WireGuard** tunnel to one or more
 landing/落地 VPS that egress to the internet — so the public exit IP is the landing's,
@@ -49,7 +50,19 @@ git clone https://github.com/superchaospc/reality-wireguard-relay \
   ~/.claude/skills/reality-wireguard-relay
 ```
 
-The skill activates automatically when you ask Claude Code to build a REALITY front with
+That's all you need for **Claude Code**. To use it in **Codex** too, run the bundled
+installer once — Claude Code and Codex share the same `SKILL.md` format, so one copy
+serves both; the script just symlinks the skill into Codex's skill dirs
+(`~/.codex/skills`, `~/.agents/skills`):
+
+```bash
+~/.claude/skills/reality-wireguard-relay/install.sh
+```
+
+It's self-contained (no other skill required), portable (agents that aren't installed are
+skipped), and idempotent. Restart Codex (new session) so it rescans.
+
+The skill activates automatically when you ask the agent to build a REALITY front with
 a WireGuard backhaul (e.g. "搭中转走 reality 落地走 wireguard", "多出口 IP 落地",
 "vless xhttp reality + wireguard 出口").
 
@@ -110,7 +123,17 @@ git clone https://github.com/superchaospc/reality-wireguard-relay \
   ~/.claude/skills/reality-wireguard-relay
 ```
 
-当你让 Claude Code 搭建 "REALITY 入口 + WireGuard 落地" 的链路时该 skill 会自动触发（例如
+这样 **Claude Code** 就能用了。想在 **Codex** 里也能用，再跑一次自带的安装脚本即可——CC 和 Codex
+用同一种 `SKILL.md` 格式，一份副本两边通用，脚本只是把 skill 软链进 Codex 的目录
+（`~/.codex/skills`、`~/.agents/skills`）：
+
+```bash
+~/.claude/skills/reality-wireguard-relay/install.sh
+```
+
+脚本自包含（不依赖其它 skill）、可移植（没装的 agent 自动跳过）、幂等。完成后重开 Codex 会话让它重新扫描。
+
+当你让 agent 搭建 "REALITY 入口 + WireGuard 落地" 的链路时该 skill 会自动触发（例如
 "搭中转走 reality 落地走 wireguard"、"多出口 IP 落地"、"vless xhttp reality + wireguard 出口"）。
 
 ### 安全声明
