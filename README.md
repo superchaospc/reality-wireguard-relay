@@ -1,10 +1,10 @@
 # reality-wireguard-relay
 
-[![Release](https://img.shields.io/github/v/release/superchaospc/reality-wireguard-relay?color=success)](https://github.com/superchaospc/reality-wireguard-relay/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-8A2BE2)](https://claude.com/claude-code)
-[![Codex Skill](https://img.shields.io/badge/Codex-Skill-412991)](#install)
-[![Xray REALITY + WireGuard](https://img.shields.io/badge/Xray-REALITY%20%2B%20WireGuard-orange)](#)
+[![Release](https://img.shields.io/github/v/release/superchaospc/reality-wireguard-relay?sort=semver)](https://github.com/superchaospc/reality-wireguard-relay/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Claude Code](https://img.shields.io/badge/Claude%20Code-skill-d97757)
+![Codex](https://img.shields.io/badge/Codex-skill-412991)
+![Stack](https://img.shields.io/badge/REALITY%20%2B%20WireGuard-stack-orange)
 
 **English** | [中文说明](#中文说明)
 
@@ -41,7 +41,7 @@ turn into "线路不通" when missed.
 | `scripts/verify_egress.py` | Bind each tunnel source IP and confirm the public exit it lands on |
 | `assets/templates/*.conf` | WireGuard `wg0.conf` templates for relay and landing |
 
-## Install
+## Install (Claude Code + Codex)
 
 Clone into your Claude Code skills directory:
 
@@ -114,7 +114,7 @@ Never commit real server IPs, UUIDs, or private keys.
 | `scripts/verify_egress.py` | 绑定每个隧道源 IP，确认它实际落到的公网出口 |
 | `assets/templates/*.conf` | 中转和落地两端的 WireGuard `wg0.conf` 模板 |
 
-### 安装
+### 安装(Claude Code + Codex)
 
 clone 到你的 Claude Code skills 目录：
 
