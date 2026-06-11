@@ -85,7 +85,7 @@ Never commit real server IPs, UUIDs, or private keys.
 
 ## 中文说明
 
-一个 [Claude Code](https://claude.com/claude-code) **skill**，教 agent 搭建两跳代理链：客户端连接
+一个 [Claude Code](https://claude.com/claude-code) / **Codex** **skill**，教 agent 搭建两跳代理链：客户端连接
 **中转 VPS** 上的 **VLESS-XHTTP-REALITY** 入口，中转再通过 **WireGuard** 隧道把流量转发给一台或多台
 **落地 VPS** 出网——所以公网出口 IP 是落地的，而不是中转的。
 
