@@ -136,10 +136,27 @@ Run in this order; each isolates a layer:
 `references/verification.md` has copy-paste test snippets (Gates A–F).
 
 ### Phase 7 — Client links + QR
-`scripts/gen_client_links.py` emits the `vless://…` links and QR PNGs. The QR avoids
-copy-paste corruption (IPv6 brackets, `#`, `&` get mangled in chat apps), which matters
-when handing a config to a different device. Remind the user the client needs the same
-IP family as the relay entry.
+`scripts/gen_client_links.py` emits the `vless://…` links and QR PNGs into
+`all-links.txt`. The QR avoids copy-paste corruption (IPv6 brackets, `#`, `&` get
+mangled in chat apps), which matters when handing a config to a different device.
+Remind the user the client needs the same IP family as the relay entry.
+
+### Phase 8 — Shareable exports (PDF / HTML / PNG / Excel)
+When the user wants something to hand off rather than raw text — a printable sheet, a
+page to open on a phone, a spreadsheet inventory — run `scripts/export_links.py` over
+the `all-links.txt` from Phase 7:
+
+```bash
+python3 scripts/export_links.py --input client-links/all-links.txt --out ./exports
+```
+
+It reads only the `vless://` lines, so the same command also works on any link blob
+(e.g. a file pasted from elsewhere). Output (default = all four formats):
+`exports/qr/<name>.png` (one QR each), `exports/lines.html` (self-contained gallery,
+QR inlined), `exports/lines.pdf` (printable, one line per row), `exports/lines.xlsx`
+(table + embedded QR). Limit with `--format pdf,xlsx`. Needs `segno reportlab openpyxl
+pillow` (`pip install --user …`); each format degrades independently if its lib is
+missing. See the script's `--help` for details.
 
 ## Pitfalls — read references/pitfalls.md
 
@@ -168,5 +185,7 @@ before building, and revisit it the moment a verification gate fails:
 - `scripts/verify_egress.py` — run on the relay; real-`bind()` per-source egress test.
 - `scripts/gen_xray_relay_config.py` — generate the multi-line REALITY xray config.
 - `scripts/gen_client_links.py` — emit `vless://` links + QR PNGs (needs `segno`).
+- `scripts/export_links.py` — turn any `vless://` blob into PDF / HTML / PNG / Excel
+  exports (needs `segno reportlab openpyxl pillow`).
 
 Run each with `--help`. They take a small JSON "lines" spec (see `references/lines-spec.md`).
